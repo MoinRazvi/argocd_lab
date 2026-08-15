@@ -1,5 +1,4 @@
-replicaCount: 7
-
+replicaCount: 5
 image:
   repository: grafana/grafana
   tag: 10.0.0
