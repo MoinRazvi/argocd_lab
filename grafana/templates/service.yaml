@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: {{ .Values.service.name }}   # Grafana service name
   labels:
-    app: pathnex-grafana            # App label for selection
+    app: grafana            # App label for selection
 spec:
   type: {{ .Values.service.type }}   # This should be LoadBalancer for external access
   selector:
-    app: pathnex-grafana            # Selector to match the Grafana pods
+    app: grafana            # Selector to match the Grafana pods
   ports:
     - port: {{ .Values.service.port }}         # External port exposed
       targetPort: {{ .Values.service.targetPort }} # Internal container port

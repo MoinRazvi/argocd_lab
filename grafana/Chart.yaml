@@ -1,5 +1,5 @@
 apiVersion: v2
-name: pathnex-grafana
+name: grafana
 description: A Helm chart to deploy Pathnex Grafana application
 type: application
 version: 0.1.0
