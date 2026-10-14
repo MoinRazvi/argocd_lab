@@ -99,6 +99,6 @@ pathnex        pathnex-nginx-service                     LoadBalancer   172.20.1
 kunectl patch application pathnex-nginx -n argocd   --type merge   -p '{"operation":{"sync":{}}}'
 
 # After completion, To delete the namespace and its resources 
-kubectl delete namespace monitoring pathnex argocd
+kubectl delete namespace monitoring pathnex argocd.
 
 # Note: Don't forget to delete the EKS cluster and bastion host after the lab.
