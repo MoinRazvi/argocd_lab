@@ -1,0 +1,11 @@
+replicaCount: 5
+image:
+  repository: grafana/grafana
+  tag: 10.0.0
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer          # Exposing Grafana to the internet
+  name: grafana-service
+  port: 80                    # External port exposed by the service
+  targetPort: 3000            # The port Grafana is running on inside the container

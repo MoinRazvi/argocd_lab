@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/MoinRazvi/argocd_lab.git'
+    targetRevision: main
+    path: grafana
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: grafana-monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
