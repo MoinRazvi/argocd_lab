@@ -1,0 +1,11 @@
+replicaCount: 3
+
+image:
+  repository: moinrazvi/my-website
+  tag: "1.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 80
