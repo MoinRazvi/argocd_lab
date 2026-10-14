@@ -1,0 +1,92 @@
+Step 1 — List the node groups
+aws eks list-nodegroups \
+  --cluster-name EKS-Moin-Test1 \
+  --region ap-south-1
+
+Step 2 — Delete the node group
+aws eks delete-nodegroup \
+  --cluster-name EKS-Moin-Test1 \
+  --nodegroup-name Moin-NG \
+  --region ap-south-1
+    
+Step 3 — Wait for node group deletion  
+aws eks describe-nodegroup \
+  --cluster-name EKS-Moin-Test1 \
+  --nodegroup-name Moin-NG-C7 \
+  --region ap-south-1 \
+  --query "nodegroup.status"
+
+Step 4 — Delete the EKS cluster  
+  aws eks delete-cluster \
+  --name EKS-Moin-Test1 \
+  --region ap-south-1
+  
+Step 5 — Wait for cluster deletion
+aws eks describe-cluster \
+  --name EKS-Moin-Test1 \
+  --region ap-south-1 \
+  --query "cluster.status"
+
+Step 6 — Check for Load Balancers
+aws elbv2 describe-load-balancers \
+  --region ap-south-1 \
+  --query "LoadBalancers[].{Name:LoadBalancerName,DNS:DNSName,State:State.Code}"
+  
+  or
+
+aws elb describe-load-balancers \
+  --region ap-south-1 \
+  --query "LoadBalancerDescriptions[].{Name:LoadBalancerName,DNS:DNSName,VPC:VPCId}"  
+
+Step 7 — Check EC2 instances
+aws ec2 describe-instances \
+  --region ap-south-1 \
+  --filters "Name=instance-state-name,Values=running,pending,stopping,stopped" \
+  --query "Reservations[].Instances[].{ID:InstanceId,State:State.Name,Type:InstanceType,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress}"
+
+Step 8 — Check EBS volumes
+aws ec2 describe-volumes \
+  --region ap-south-1 \
+  --filters Name=status,Values=available \
+  --query "Volumes[].{ID:VolumeId,Size:Size,State:State}"
+
+Step 9 — Check NAT Gateways
+aws ec2 describe-nat-gateways \
+  --region ap-south-1 \
+  --filter Name=state,Values=available,pending \
+  --query "NatGateways[].{ID:NatGatewayId,State:State,Subnet:SubnetId}"
+
+Step 10 — Check Elastic IPs
+aws ec2 describe-addresses \
+  --region ap-south-1 \
+  --query "Addresses[].{AllocationId:AllocationId,PublicIP:PublicIp,AssociationId:AssociationId}"
+
+Step 11 — Check the VPC
+aws ec2 describe-vpcs \
+  --region ap-south-1 \
+  --query "Vpcs[].{VpcId:VpcId,Cidr:CidrBlock,Name:Tags[?Key=='Name']|[0].Value}" 
+
+
+1. List EKS clusters
+        ↓
+2. List node groups
+        ↓
+3. Delete node group(s)
+        ↓
+4. Wait for node group deletion
+        ↓
+5. Delete EKS cluster
+        ↓
+6. Wait for cluster deletion
+        ↓
+7. Check Load Balancers
+        ↓
+8. Check EC2 instances
+        ↓
+9. Check EBS volumes
+        ↓
+10. Check NAT Gateways
+        ↓
+11. Check Elastic IPs
+        ↓
+12. Check VPC  
