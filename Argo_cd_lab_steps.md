@@ -210,7 +210,33 @@ Direct get the password: kubectl get secret argocd-initial-admin-secret -n argoc
 
 
 
-10\) 
+10\) grafana-monitoring
+
+
+
+create the name space grafana-monitoring
+
+
+
+kubectl create namespace grafana-monitoring
+
+kubectl create namespace nginx
+
+
+
+\------------------------------------------------------------------------------------
+
+
+
+11\)
+
+kubectl get applications -n argocd (to check the applications which are running on argo CD syn status, health status)
+
+kubectl get application grafana -n argocd -o yaml
+
+
+
+kubectl apply -f argo-apps/ 
 
 
 

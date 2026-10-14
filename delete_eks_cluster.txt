@@ -38,6 +38,21 @@ aws elb describe-load-balancers \
   --region ap-south-1 \
   --query "LoadBalancerDescriptions[].{Name:LoadBalancerName,DNS:DNSName,VPC:VPCId}"  
 
+or 
+
+aws elb describe-load-balancers \
+  --region ap-south-1 \
+  --query "LoadBalancerDescriptions[].{Name:LoadBalancerName,DNS:DNSName,VPC:VPCId}" \
+  --output table
+
+delete the load balancer
+
+aws elb delete-load-balancer \
+  --load-balancer-name <LOAD_BALANCER_NAME> \
+  --region ap-south-1
+
+-----------------
+
 Step 7 — Check EC2 instances
 aws ec2 describe-instances \
   --region ap-south-1 \
